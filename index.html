@@ -365,6 +365,32 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 .form-rodape{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 0;align-items:center}
 .nota{font-size:12.5px;color:var(--neutro);margin:14px 0 0;max-width:64ch}
 
+/* Missionários — carrossel */
+.miss-carrossel{position:relative;margin:44px 0 0}
+.miss-track{
+  display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;
+  scroll-snap-type:x mandatory;padding:4px 2px 18px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.miss-track::-webkit-scrollbar{display:none}
+.miss-card{
+  flex:0 0 auto;width:min(560px,86vw);margin:0;scroll-snap-align:center;
+  border:var(--borda);border-radius:var(--raio);overflow:hidden;
+  box-shadow:0 18px 44px rgba(0,0,0,.4);background:#0A1F33;
+}
+.miss-card img{display:block;width:100%;height:auto}
+.miss-nav{
+  position:absolute;top:calc(50% - 18px);transform:translateY(-50%);z-index:2;
+  width:48px;height:48px;border-radius:50%;cursor:pointer;
+  background:rgba(10,31,51,.85);border:1px solid var(--turquesa);
+  color:var(--turquesa);font-size:26px;line-height:1;display:grid;place-items:center;
+  transition:.18s;
+}
+.miss-nav:hover{background:var(--turquesa);color:#04222C}
+.miss-prev{left:-6px}
+.miss-next{right:-6px}
+@media(max-width:640px){.miss-nav{display:none}}
+
 /* ---- certificado ---- */
 .cert{margin:34px 0 0;display:none}
 .cert.visivel{display:block}
@@ -408,6 +434,7 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav">
       <a href="#conscientizacao">Conscientização</a>
+      <a href="#missionarios">Missionários</a>
       <a href="#acao">Programação</a>
       <a href="#passaporte">Passaporte</a>
       <a href="#compromisso" class="destaque">Meu compromisso</a>
@@ -481,6 +508,37 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
     <p class="lede">Um por dia, de 28 de agosto a 10 de setembro. Escolha um e ore por ele até o fim do ano.</p>
     <div class="povos" id="povos"></div>
     <p class="nota">Números aproximados, para mobilização. Confira e atualize em joshuaproject.net ou junto à SEMI.</p>
+  </div>
+</section>
+
+<!-- ======================= MISSIONÁRIOS ======================= -->
+<section class="faixa faixa-marinho" id="missionarios">
+  <div class="env">
+    <div class="cabeca">
+      <span class="passo">✦</span>
+      <div class="cabeca-txt">
+        <p class="eyebrow">Uma chama que não pode se apagar</p>
+        <h2 class="tit">Conheça nossos missionários</h2>
+        <p class="lede">Homens e mulheres enviados pela SEMI que já estão em campo — no Brasil, nos presídios e nos leprosários. Ore por eles, sustente-os e vá com eles.</p>
+      </div>
+    </div>
+
+    <div class="miss-carrossel">
+      <button class="miss-nav miss-prev" id="missPrev" aria-label="Anterior">‹</button>
+      <div class="miss-track" id="missTrack">
+        <figure class="miss-card"><img src="miss-1.jpg" alt="Flávio Hipólito e Marizete — Pouso Alegre, MG" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-2.jpg" alt="Cleiton e Família — Jardim Iguatemi, SP" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-3.jpg" alt="Edmar Ramos e Silmara — Cambuí, MG" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-4.jpg" alt="Luciano Ribeiro e Família — Salinas, BA" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-5.jpg" alt="Edson Carlos e Família — Jardim Brasília, Sousa, PB" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-6.jpg" alt="Dyogo Alves e Família — Cerquilho, SP" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-7.jpg" alt="Wagner e Eliana — Batatais, SP" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-8.jpg" alt="Nascimento Monteiro — Presídios e Leprosários" loading="lazy"></figure>
+        <figure class="miss-card"><img src="miss-9.jpg" alt="Franscisca Valle — Presídios e Leprosários" loading="lazy"></figure>
+      </div>
+      <button class="miss-nav miss-next" id="missNext" aria-label="Próximo">›</button>
+    </div>
+    <p class="nota" style="text-align:center">Arraste para o lado para conhecer cada missionário.</p>
   </div>
 </section>
 
@@ -1374,6 +1432,22 @@ function baixarCert(){
 }
 
 /* ============================================================
+   MISSIONÁRIOS — carrossel
+   ============================================================ */
+function carrosselMiss(){
+  const track = document.getElementById("missTrack");
+  if (!track) return;
+  const prev = document.getElementById("missPrev");
+  const next = document.getElementById("missNext");
+  const passo = () => {
+    const card = track.querySelector(".miss-card");
+    return card ? card.getBoundingClientRect().width + 20 : track.clientWidth;
+  };
+  prev && prev.addEventListener("click", ()=> track.scrollBy({left:-passo(),behavior:"smooth"}));
+  next && next.addEventListener("click", ()=> track.scrollBy({left: passo(),behavior:"smooth"}));
+}
+
+/* ============================================================
    INÍCIO
    ============================================================ */
 (async function(){
@@ -1385,6 +1459,7 @@ function baixarCert(){
   montarProg();
   montarNiveis();
   montarVistos();
+  carrosselMiss();
 
   // restaurar formulário
   document.getElementById("fNome").value = estado.nome || "";
