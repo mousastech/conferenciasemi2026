@@ -391,6 +391,21 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 .miss-next{right:-6px}
 @media(max-width:640px){.miss-nav{display:none}}
 
+/* Oferta Missionária */
+.oferta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:40px 0 0}
+.oferta-card{background:#fff;border:var(--borda);border-radius:var(--raio);padding:24px 22px;box-shadow:0 14px 34px rgba(10,31,51,.08)}
+.oferta-card h4{font-family:var(--display);font-size:15px;letter-spacing:.02em;color:var(--marinho);margin:0 0 14px;text-transform:uppercase}
+.oferta-card .linha{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid rgba(10,31,51,.08);font-size:14.5px;color:#42525E}
+.oferta-card .linha:last-child{border-bottom:0}
+.oferta-card .linha b{color:var(--marinho);font-weight:700}
+.oferta-pix{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;background:var(--marinho);border-radius:var(--raio);padding:22px 26px;color:#fff}
+.oferta-pix .pix-lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro-claro);font-weight:700;margin:0 0 4px}
+.oferta-pix .pix-val{font-family:var(--display);font-size:clamp(22px,4vw,30px);color:#fff;line-height:1}
+.oferta-pix .btn{margin-left:auto}
+.oferta-cnpj{margin:26px 0 0;font-size:13.5px;color:#42525E;text-align:center}
+.oferta-cnpj b{color:var(--marinho)}
+.oferta-verso{margin:8px 0 0;font-family:var(--escrito);font-style:italic;color:#8A6B18;text-align:center;font-size:16px}
+
 /* ---- certificado ---- */
 .cert{margin:34px 0 0;display:none}
 .cert.visivel{display:block}
@@ -437,6 +452,7 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
       <a href="#missionarios">Missionários</a>
       <a href="#acao">Programação</a>
       <a href="#passaporte">Passaporte</a>
+      <a href="#oferta">Oferta</a>
       <a href="#compromisso" class="destaque">Meu compromisso</a>
     </nav>
   </div>
@@ -647,6 +663,45 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
         <button class="btn btn-2" id="btnZap2">Enviar à Secretaria</button>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ======================= OFERTA MISSIONÁRIA ======================= -->
+<section class="faixa faixa-clara" id="oferta">
+  <div class="env">
+    <div class="cabeca">
+      <span class="passo">✦</span>
+      <div class="cabeca-txt">
+        <p class="eyebrow">Eu sustento</p>
+        <h2 class="tit">Oferta Missionária</h2>
+        <p class="lede">Toda semente lançada na obra sustenta um missionário em campo. Contribua com a SEMI e faça parte do envio.</p>
+      </div>
+    </div>
+
+    <div class="oferta-grid">
+      <div class="oferta-pix">
+        <div>
+          <p class="pix-lbl">Chave PIX SEMI</p>
+          <p class="pix-val">(11) 98151-2371</p>
+        </div>
+        <button class="btn btn-1" id="btnCopiarPix" type="button">Copiar chave PIX</button>
+      </div>
+
+      <div class="oferta-card">
+        <h4>Banco Itaú</h4>
+        <div class="linha"><span>Agência</span><b>8255</b></div>
+        <div class="linha"><span>Conta corrente</span><b>00846-1</b></div>
+      </div>
+
+      <div class="oferta-card">
+        <h4>Banco do Brasil</h4>
+        <div class="linha"><span>Agência</span><b>0427-8</b></div>
+        <div class="linha"><span>Conta corrente</span><b>50069-0</b></div>
+      </div>
+    </div>
+
+    <p class="oferta-cnpj">Igreja Evangélica Assembleia de Deus Ministério São Bernardo do Campo<br><b>CNPJ 59.162.313/0001-99</b></p>
+    <p class="oferta-verso">“Cada um contribua segundo propôs no seu coração, não com tristeza ou por necessidade; porque Deus ama ao que dá com alegria.” — 2 Coríntios 9.7</p>
   </div>
 </section>
 
@@ -1448,6 +1503,25 @@ function carrosselMiss(){
 }
 
 /* ============================================================
+   OFERTA — copiar chave PIX
+   ============================================================ */
+function ofertaPix(){
+  const btn = document.getElementById("btnCopiarPix");
+  if (!btn) return;
+  const chave = "11981512371";
+  btn.addEventListener("click", async ()=>{
+    try { await navigator.clipboard.writeText(chave); }
+    catch(e){
+      const t=document.createElement("textarea"); t.value=chave; document.body.appendChild(t);
+      t.select(); try{document.execCommand("copy");}catch(_){} t.remove();
+    }
+    const original = btn.textContent;
+    btn.textContent = "Chave copiada ✓";
+    setTimeout(()=>{ btn.textContent = original; }, 2200);
+  });
+}
+
+/* ============================================================
    INÍCIO
    ============================================================ */
 (async function(){
@@ -1460,6 +1534,7 @@ function carrosselMiss(){
   montarNiveis();
   montarVistos();
   carrosselMiss();
+  ofertaPix();
 
   // restaurar formulário
   document.getElementById("fNome").value = estado.nome || "";
