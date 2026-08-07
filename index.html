@@ -165,6 +165,8 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 .relogio b{display:block;font-family:var(--display);font-size:26px;color:var(--ouro-claro);line-height:1.1}
 .relogio i{font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--neutro)}
 .acoes{display:flex;flex-wrap:wrap;gap:12px}
+.acoes .btn{flex:1 1 auto;justify-content:center;min-width:180px;text-align:center}
+@media(max-width:560px){.acoes .btn{flex:1 1 100%}}
 .btn{
   display:inline-flex;align-items:center;gap:9px;
   padding:14px 24px;border-radius:var(--raio);text-decoration:none;
@@ -473,6 +475,8 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 
     <div class="acoes">
       <a href="#acao" class="btn btn-1">Programação</a>
+      <a href="#missionarios" class="btn btn-2">Nossos Missionários</a>
+      <a href="#oferta" class="btn btn-2">Contribua</a>
       <a href="#passaporte" class="btn btn-2">Passaporte Missionário</a>
       <a href="#conscientizacao" class="btn btn-2">Por que isso importa</a>
     </div>
