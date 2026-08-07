@@ -134,11 +134,6 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
   z-index:-2;
 }
 .hero-in{max-width:var(--max);margin:0 auto;padding:0 24px;position:relative}
-.onda{width:100%;height:96px;margin:0 0 26px;display:block}
-.onda path{
-  fill:none;stroke:var(--turquesa);stroke-width:2;stroke-linecap:round;
-  stroke-dasharray:2400;stroke-dashoffset:0;
-}
 .hero-ref{
   font-size:11px;letter-spacing:.3em;text-transform:uppercase;
   color:var(--ouro);font-weight:600;margin:0 0 18px;
@@ -418,9 +413,6 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 <!-- ======================= HERO ======================= -->
 <section class="hero">
   <div class="hero-in">
-    <svg class="onda" id="onda" viewBox="0 0 1200 96" preserveAspectRatio="none" aria-hidden="true">
-      <path id="ondaPath" d="M0 48 H1200"/>
-    </svg>
     <h1 class="hero-tema-img">
       <img src="hero-banner.jpg" alt="Ezequiel 33.7-9 · Conferência Missionária — O silêncio da igreja é o grito ignorado das nações. 11 a 13 de setembro, Templo Sede, Rua Mediterrâneo, 680, Jardim do Mar, SBC. Sexta 19h · Sábado 8h e 18h · Domingo 8h e 18h.">
     </h1>
@@ -801,34 +793,6 @@ async function carregar(){
 }
 async function salvar(){
   try{ await Store.gravar(CHAVE, JSON.stringify(estado)); }catch(e){}
-}
-
-/* ============================================================
-   HERO — a linha reta que vira onda
-   ============================================================ */
-function animarOnda(){
-  const path = document.getElementById("ondaPath");
-  if (!path) return;
-  const reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const W = 1200, M = 48;
-  const forma = (amp) => {
-    let d = "M0 " + M;
-    for (let x = 0; x <= W; x += 4){
-      const env = Math.exp(-Math.pow((x - 600) / 330, 2));
-      const y = M - Math.sin(x / 26) * 34 * env * amp - Math.sin(x / 9.5) * 11 * env * amp;
-      d += " L" + x + " " + y.toFixed(2);
-    }
-    return d;
-  };
-  if (reduz){ path.setAttribute("d", forma(1)); return; }
-  const t0 = performance.now(), dur = 1500, espera = 700;
-  function passo(t){
-    const p = Math.min(1, Math.max(0, (t - t0 - espera) / dur));
-    const suave = p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;
-    path.setAttribute("d", forma(suave));
-    if (p < 1) requestAnimationFrame(passo);
-  }
-  requestAnimationFrame(passo);
 }
 
 /* ============================================================
@@ -1405,7 +1369,6 @@ function baixarCert(){
 (async function(){
   await carregar();
 
-  animarOnda();
   relogio();
   montarMapa();
   montarPovos();
