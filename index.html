@@ -403,7 +403,7 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav">
       <a href="#conscientizacao">Conscientização</a>
-      <a href="#acao">Ação</a>
+      <a href="#acao">Programação</a>
       <a href="#passaporte">Passaporte</a>
       <a href="#compromisso" class="destaque">Meu compromisso</a>
     </nav>
@@ -421,6 +421,7 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 
     <div class="acoes">
       <a href="#passaporte" class="btn btn-1">Abrir meu passaporte</a>
+      <a href="#acao" class="btn btn-2">Programação</a>
       <a href="#conscientizacao" class="btn btn-2">Por que isso importa</a>
     </div>
   </div>
@@ -481,8 +482,8 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
       <span class="passo">02</span>
       <div class="cabeca-txt">
         <p class="eyebrow">Ouvir</p>
-        <h2 class="tit">Ação</h2>
-        <p class="lede">Cinco reuniões, três movimentos. Cada uma tem um momento que não se repete — e você vai querer estar em todos os cinco.</p>
+        <h2 class="tit">Programação</h2>
+        <p class="lede">Consulte a programação do evento</p>
       </div>
     </div>
     <div class="prog" id="prog"></div>
@@ -712,7 +713,7 @@ const POVOS = [
 ];
 
 const REUNIOES = [
- {n:1,quando:"Sexta 11/09 · 19h",tit:"O Silêncio",mov:"Ver",pais:"Bangladesh",forma:"circulo",data:"11 SET 26",
+ {n:1,quando:"Sexta 11/09 · 19h",tit:"O Silêncio",mov:"Culto de Abertura",pais:"Bangladesh",forma:"circulo",data:"11 SET 26",
   inicioISO:"2026-09-11T19:00:00-03:00",fimISO:"2026-09-11T21:00:00-03:00",
   marcante:"A abertura em silêncio absoluto rompida pelo shofar. É a imagem que a igreja vai carregar pelos três dias.",
   blocos:[["19h00","Sessenta segundos de silêncio, com números de povos não alcançados no telão"],
@@ -721,7 +722,7 @@ const REUNIOES = [
           ["19h40","Leitura pública de Ezequiel 33.7-9"],
           ["20h00","Pregação de abertura"],
           ["20h45","Apelo e oração de consagração"]]},
- {n:2,quando:"Sábado 12/09 · 8h",tit:"A Atalaia Preparada",mov:"Ouvir",pais:"Turquia",forma:"retangulo",data:"12 SET 26",
+ {n:2,quando:"Sábado 12/09 · 8h",tit:"A Atalaia Preparada",mov:"Manhã de conscientização Missionária",pais:"Turquia",forma:"retangulo",data:"12 SET 26",
   inicioISO:"2026-09-12T08:00:00-03:00",fimISO:"2026-09-12T12:00:00-03:00",
   marcante:"A mesa aberta de perguntas com os preletores. Derruba a distância entre púlpito e povo.",
   blocos:[["08h20","Panorama missiológico: Janela 10/40 e campos da SEMI"],
@@ -736,13 +737,13 @@ const REUNIOES = [
           ["18h35","Testemunho ao vivo do campo missionário"],
           ["18h55","Pregação"],
           ["19h40","Intercessão pelas nações"]]},
- {n:4,quando:"Domingo 13/09 · 8h",tit:"Quem Enviarei?",mov:"Tocar a trombeta",pais:"Índia",forma:"hexagono",data:"13 SET 26",
+ {n:4,quando:"Domingo 13/09 · 8h",tit:"Quem Enviarei?",mov:"Reunião de Obreiros com culto SEMI",pais:"Índia",forma:"hexagono",data:"13 SET 26",
   inicioISO:"2026-09-13T08:00:00-03:00",fimISO:"2026-09-13T12:00:00-03:00",
   marcante:"Consagração e Envio: três níveis de compromisso, assinados e depositados no altar. O coração da conferência.",
   blocos:[["08h00","Escola Bíblica Dominical (EBD)"],
           ["09h00","Pregação"],
           ["10h00","Reunião geral de obreiros — encerramento às 12h"]]},
- {n:5,quando:"Domingo 13/09 · 18h",tit:"Envio",mov:"Tocar a trombeta",pais:"Brasil",forma:"circulo_duplo",data:"13 SET 26",
+ {n:5,quando:"Domingo 13/09 · 18h",tit:"Envio",mov:"Culto Público / Encerramento",pais:"Brasil",forma:"circulo_duplo",data:"13 SET 26",
   inicioISO:"2026-09-13T18:25:00-03:00",fimISO:"2026-09-13T20:00:00-03:00",
   marcante:"Os louvores da Harpa com a Orquestra Júbilo Celeste conduzem a igreja ao encerramento — a última pregação e o envio para os próximos 12 meses.",
   blocos:[["18h25","Oração"],
