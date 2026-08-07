@@ -399,9 +399,13 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 .oferta-card .linha:last-child{border-bottom:0}
 .oferta-card .linha b{color:var(--marinho);font-weight:700}
 .oferta-pix{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;background:var(--marinho);border-radius:var(--raio);padding:22px 26px;color:#fff}
+.oferta-pix .pix-qr{width:120px;height:120px;border-radius:6px;background:#fff;padding:8px;flex:0 0 auto}
+.oferta-pix .pix-info{min-width:200px}
 .oferta-pix .pix-lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro-claro);font-weight:700;margin:0 0 4px}
 .oferta-pix .pix-val{font-family:var(--display);font-size:clamp(22px,4vw,30px);color:#fff;line-height:1}
+.oferta-pix .pix-dica{font-size:12.5px;color:#9FBECB;margin:8px 0 0;max-width:34ch}
 .oferta-pix .btn{margin-left:auto}
+@media(max-width:640px){.oferta-pix .btn{margin-left:0;width:100%;justify-content:center}}
 .oferta-cnpj{margin:26px 0 0;font-size:13.5px;color:#42525E;text-align:center}
 .oferta-cnpj b{color:var(--marinho)}
 .oferta-verso{margin:8px 0 0;font-family:var(--escrito);font-style:italic;color:#8A6B18;text-align:center;font-size:16px}
@@ -680,9 +684,11 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 
     <div class="oferta-grid">
       <div class="oferta-pix">
-        <div>
+        <img class="pix-qr" src="pix-qrcode.png" alt="QR Code PIX da SEMI — aponte a câmera do seu app do banco para contribuir" width="120" height="120">
+        <div class="pix-info">
           <p class="pix-lbl">Chave PIX SEMI</p>
           <p class="pix-val">(11) 98151-2371</p>
+          <p class="pix-dica">Aponte a câmera do seu banco para o QR Code ou copie a chave.</p>
         </div>
         <button class="btn btn-1" id="btnCopiarPix" type="button">Copiar chave PIX</button>
       </div>
