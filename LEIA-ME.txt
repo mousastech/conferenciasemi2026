@@ -1,0 +1,54 @@
+CONFERÊNCIA MISSIONÁRIA ADMSBC — PASTA PRONTA PARA PUBLICAR
+===========================================================
+
+Esta pasta já está no formato que os serviços de hospedagem esperam.
+Não reorganize os arquivos: o index.html precisa estar na raiz.
+
+ANTES DE SUBIR — edite o index.html num editor de texto:
+
+1) Procure por "SEU-ENDERECO-AQUI" (aparece 4 vezes).
+   Troque pelo endereço final do site, por exemplo:
+   https://conferencia-admsbc.vercel.app
+   Sem isso, a prévia com imagem não aparece ao compartilhar no WhatsApp.
+
+2) Procure por "const CONFIG".
+   - whatsappSecretaria: número real, só dígitos, com 55 na frente
+   - codigos: troque as cinco palavras pelos códigos que a recepção vai divulgar
+
+COMO PUBLICAR — escolha um
+
+A) VERCEL, arrastando a pasta (mais rápido, ~2 minutos)
+   1. Entre em vercel.com e faça login
+   2. Vá em vercel.com/new
+   3. Arraste esta pasta inteira para a área de upload
+   4. Deploy. O endereço sai na hora.
+   5. Volte no passo 1 acima, corrija o endereço e refaça o upload.
+
+B) NETLIFY DROP (nem precisa de conta para testar)
+   1. Entre em app.netlify.com/drop
+   2. Arraste esta pasta
+   3. Sai um endereço público imediatamente
+
+C) GITHUB PAGES (bom se você já usa mousasnet.github.io)
+   1. Crie um repositório, por exemplo "conferencia-missionaria"
+   2. Envie os arquivos desta pasta para a raiz do repositório
+   3. Settings > Pages > Branch: main, pasta /(root)
+   4. O endereço fica mousasnet.github.io/conferencia-missionaria
+
+DEPOIS DE PUBLICAR
+
+- Teste a prévia colando o link em developers.facebook.com/tools/debug
+  e clicando em "Scrape Again". O WhatsApp usa o mesmo cache.
+- Teste o passaporte digital no celular, com um dos códigos.
+- Gere um certificado de teste e confira se baixa a imagem.
+- Coloque o link na bio do @ieadmsbc e nos grupos de WhatsApp.
+
+ARQUIVOS
+
+index.html            o site inteiro, com os logos embutidos
+og-image.png          imagem que aparece na prévia do compartilhamento
+favicon.png           ícone da aba do navegador
+icone-512.png         ícone grande
+apple-touch-icon.png  ícone ao salvar na tela inicial do iPhone
+logo-admsbc.png       logo da igreja, avulso
+logo-semi.png         logo da SEMI, avulso
