@@ -770,6 +770,11 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 </div>
 
 <script>
+/* Logos do certificado (pré-carregados para o canvas) */
+const CERT_IMG = { selo:new Image(), semi:new Image() };
+CERT_IMG.selo.src = "cert-selo80.png";
+CERT_IMG.semi.src = "cert-semi.png";
+
 /* ============================================================
    CONFIGURAÇÃO — a igreja edita só esta parte
    ============================================================ */
@@ -1390,7 +1395,13 @@ function gerarCertificado(){
   ctx.fillStyle=CINZA; ctx.font=F(20,600);
   ctx.fillText("ASSEMBLEIA DE DEUS  ·  MINISTÉRIO SÃO BERNARDO DO CAMPO", W/2, 148);
 
-  brasaoCanvas(ctx, W/2, 268, 0.72, OURO);
+  // Selo de 80 anos no topo (com fallback para o brasão vetorial se a imagem não carregou)
+  if (CERT_IMG.selo.complete && CERT_IMG.selo.naturalWidth){
+    const sh=196, sw=sh*(CERT_IMG.selo.naturalWidth/CERT_IMG.selo.naturalHeight);
+    ctx.drawImage(CERT_IMG.selo, W/2-sw/2, 172, sw, sh);
+  } else {
+    brasaoCanvas(ctx, W/2, 268, 0.72, OURO);
+  }
 
   ctx.fillStyle=MAR; ctx.font=F(72,800,"Archivo Black, Arial Black, sans-serif");
   ctx.fillText("CERTIFICADO DE COMPROMISSO", W/2, 452);
@@ -1460,15 +1471,20 @@ function gerarCertificado(){
   ctx.font=F(17,400);
   ctx.fillText("São Bernardo do Campo, 13 de setembro de 2026", W/2+70, 1206);
 
-  // selo
+  // logo SEMI no lugar do antigo selo "33.7 EZEQUIEL"
   const sx=330, sy=1168;
-  ctx.strokeStyle=OURO; ctx.lineWidth=3; ctx.beginPath(); ctx.arc(sx,sy,86,0,7); ctx.stroke();
-  ctx.lineWidth=1.4; ctx.beginPath(); ctx.arc(sx,sy,73,0,7); ctx.stroke();
-  guilhoche(ctx,sx,sy,64,9,22,"rgba(168,128,31,.5)",1.2);
-  ctx.fillStyle=MAR; ctx.font=F(38,800,"Archivo Black, Arial Black, sans-serif");
-  ctx.fillText("33.7",sx,sy+14);
-  ctx.fillStyle=OURO; ctx.font=F(14,600); ctx.fillText("EZEQUIEL",sx,sy-28);
-  ctx.font=F(13,600); ctx.fillText("ADMSBC",sx,sy+46);
+  if (CERT_IMG.semi.complete && CERT_IMG.semi.naturalWidth){
+    const lh=196, lw=lh*(CERT_IMG.semi.naturalWidth/CERT_IMG.semi.naturalHeight);
+    ctx.drawImage(CERT_IMG.semi, sx-lw/2, sy-lh/2, lw, lh);
+  } else {
+    ctx.strokeStyle=OURO; ctx.lineWidth=3; ctx.beginPath(); ctx.arc(sx,sy,86,0,7); ctx.stroke();
+    ctx.lineWidth=1.4; ctx.beginPath(); ctx.arc(sx,sy,73,0,7); ctx.stroke();
+    guilhoche(ctx,sx,sy,64,9,22,"rgba(168,128,31,.5)",1.2);
+    ctx.fillStyle=MAR; ctx.font=F(38,800,"Archivo Black, Arial Black, sans-serif");
+    ctx.fillText("33.7",sx,sy+14);
+    ctx.fillStyle=OURO; ctx.font=F(14,600); ctx.fillText("EZEQUIEL",sx,sy-28);
+    ctx.font=F(13,600); ctx.fillText("ADMSBC",sx,sy+46);
+  }
 
   // assinaturas
   const bl=[["Pastor Presidente"],["Secretaria de Evangelismo e Missões — SEMI"]];
