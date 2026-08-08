@@ -320,6 +320,14 @@ h3.sub{font-family:var(--display);font-size:clamp(20px,3vw,28px);line-height:1.1
 .visto.ok .v-selo svg{opacity:1;transform:scale(1) rotate(-4deg)}
 .visto .v-vazio{font-size:11px;color:#4E6C7A;letter-spacing:.1em;text-transform:uppercase}
 .visto.ok .v-vazio{display:none}
+.visto.novo{animation:vistoPulso 1.4s ease-out 1}
+.visto.novo .v-selo svg{animation:seloBate .5s cubic-bezier(.2,.9,.3,1.2) 1}
+@keyframes vistoPulso{
+  0%{box-shadow:0 0 0 0 rgba(63,213,236,.55);border-color:var(--turquesa)}
+  100%{box-shadow:0 0 0 14px rgba(63,213,236,0);border-color:rgba(63,213,236,.5)}
+}
+@keyframes seloBate{0%{transform:scale(1.8) rotate(-14deg);opacity:0}60%{transform:scale(.92) rotate(-2deg);opacity:1}100%{transform:scale(1) rotate(-4deg)}}
+@media(prefers-reduced-motion:reduce){.visto.novo,.visto.novo .v-selo svg{animation:none}}
 .pass-form{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 0;align-items:center}
 .pass-form input{
   flex:1;min-width:170px;background:rgba(6,22,31,.7);border:var(--borda);
@@ -1183,13 +1191,13 @@ function svgCarimbo(r){
 /* ============================================================
    PASSAPORTE DIGITAL
    ============================================================ */
-function montarVistos(){
+function montarVistos(recem){
   const alvo = document.getElementById("vistos");
   alvo.innerHTML = "";
   REUNIOES.forEach(r=>{
     const ok = estado.vistos.includes(r.n);
     const d = document.createElement("div");
-    d.className = "visto" + (ok ? " ok" : "");
+    d.className = "visto" + (ok ? " ok" : "") + (r.n===recem ? " novo" : "");
     d.innerHTML = `<div><span class="v-lab">${r.quando}</span><div class="v-nome">${r.tit}</div></div>
       <div class="v-selo">${svgCarimbo(r)}</div>
       <span class="v-vazio">Sem carimbo</span>`;
@@ -1220,13 +1228,17 @@ async function carimbar(){
   estado.vistos.push(achou);
   estado.vistos.sort((a,b)=>a-b);
   await salvar();
-  montarVistos();
+  montarVistos(achou);
   document.getElementById("codigo").value="";
   const r = REUNIOES.find(x=>x.n===achou);
   av.className="aviso ok";
-  av.textContent = estado.vistos.length===5
-    ? "Passaporte completo. Apresente esta tela na recepção no domingo à noite e retire a sua lembrança."
-    : `Carimbo de ${r.pais} registrado — ${r.tit}. Faltam ${5-estado.vistos.length}.`;
+  if (estado.vistos.length===5){
+    av.textContent = "🎉 Passaporte completo! Apresente esta tela na recepção no domingo à noite e retire a sua lembrança.";
+  } else {
+    const faltam = REUNIOES.filter(x=>!estado.vistos.includes(x.n)).map(x=>x.tit);
+    const lista = faltam.length===1 ? faltam[0] : faltam.slice(0,-1).join(", ")+" e "+faltam.slice(-1);
+    av.textContent = `Carimbo de ${r.tit} registrado! Ainda falta${faltam.length>1?"m":""}: ${lista}.`;
+  }
 }
 
 /* ============================================================
